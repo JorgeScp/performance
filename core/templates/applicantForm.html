@@ -1,0 +1,54 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Prueba {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="title">Prueba Técnica</h5>
+      </div>
+      <div class="card-header">
+        <p class="">Estimado aprendiz, a continuación encontrará adjunta la prueba técnica la cual deberá
+        desarrollar en el transcurso de 30 minutos máximo. Una vez realizada por favor adjunte el debido
+        soporte en formato .pdf o .jpg/.png, a través del siguiente link.
+        </p>
+        <a href="http://127.0.0.1:8000/media/test.txt" class="btn text-secondary px-0">
+          <i class="">Prueba Técnica</i>
+        </a>
+      </div>
+
+      <div class="card-header">
+        <h5 class="title">Formulario de Entrega</h5>
+      </div>
+      <div class="card-body">
+      
+        <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        <div class="col-md-8">
+            <button type="submit" class="btn btn-success btn-block btn-lg"><i class="fas fa-database"></i>
+                Enviar</button>
+        </div>
+        </form>
+        
+    </div>
+    </div>
+</div>
+</div>
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+{% endblock javascripts %}

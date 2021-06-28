@@ -1,0 +1,540 @@
+{% extends 'layouts/base.html' %}
+
+
+{% block title %} Page User {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-7">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="title text-center">Formato de Evaluación</h5>
+      </div>
+      <div class="card-body">
+      
+      
+        <form role="form" method="post" action="">
+        {% csrf_token %}
+            {%if form.errors %}
+                <p class="text-danger">{{ form.errors }}</p>
+            {% endif %}  
+        <div class="row justify-content-md-center">
+
+            <!-- <div  class="md-center col-md-8 pr-md-1 ">
+                {{form.as_table}}
+            </div>
+             -->
+            <div  class="md-center col-md-10 pr-md-1 ">
+
+                <div class="col-md-12">
+                    
+                    <label class="col-4 control-label"> {{form.dated.label}}              
+                    </label>
+                    {{form.dated}}
+                    
+                </div>
+            
+                <div class="col-md-12">
+                    <label class="col-4 control-label"> {{form.evaluator.label}}              
+                    </label>
+                    {{form.evaluator}}
+                </div>
+            </br>
+                <div class="col-md-12">
+                    <label class="col-4 control-label"> {{form.evaluated.label}}              
+                    </label>
+                    {{form.evaluated}}
+                </div>
+            </br>    
+                <div class="col-md-12">
+                    <label class="col-4 control-label"> {{form.relation.label}}              
+                    </label>
+                    {{form.relation}}
+                </div>
+            </br>
+
+                <div class="col-md-12">
+                    <h3 class="col-12">COMUNICACIÓN</h3>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.comunicacion_1.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.comunicacion_1}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.comunicacion_2.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.comunicacion_2}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.comunicacion_3.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.comunicacion_3}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.comunicacion_4.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.comunicacion_4}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.comunicacion_5.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.comunicacion_5}}
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <h3 class="col-12">TRABAJO EN EQUIPO</h3>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.trabajo_equipo_1.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.trabajo_equipo_1}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.trabajo_equipo_2.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.trabajo_equipo_2}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.trabajo_equipo_3.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.trabajo_equipo_3}}
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <h3 class="col-12">SERVICIO AL CLIENTE</h3>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.servicio_cliente_1.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.servicio_cliente_1}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.servicio_cliente_2.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.servicio_cliente_2}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.servicio_cliente_3.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.servicio_cliente_3}}
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <h3 class="col-12">RESOLUCIÓN DE PROBLEMAS</h3>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.resolucion_problemas_1.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.resolucion_problemas_1}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.resolucion_problemas_2.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.resolucion_problemas_2}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.resolucion_problemas_3.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.resolucion_problemas_3}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.resolucion_problemas_4.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.resolucion_problemas_4}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.resolucion_problemas_5.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.resolucion_problemas_5}}
+                    </div>
+                </div>
+                
+
+                <div class="col-md-12">
+                    <h3 class="col-12">LIDERAZGO</h3>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.liderazgo_1.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.liderazgo_1}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.liderazgo_2.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.liderazgo_2}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.liderazgo_3.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.liderazgo_3}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.liderazgo_4.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.liderazgo_4}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.liderazgo_5.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.liderazgo_5}}
+                    </div>
+                </div>
+
+
+                <div class="col-md-12">
+                    <h3 class="col-12">ADMINISTRACION DEL TIEMPO</h3>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.admon_tiempo_1.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.admon_tiempo_1}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.admon_tiempo_2.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.admon_tiempo_2}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.admon_tiempo_3.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.admon_tiempo_3}}
+                    </div>
+                </div>
+
+
+                <div class="col-md-12">
+                    <h3 class="col-12">PENSAMIENTO ESTRATEGICO</h3>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.pensamiento_estrategico_1.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.pensamiento_estrategico_1}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.pensamiento_estrategico_2.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.pensamiento_estrategico_2}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.pensamiento_estrategico_3.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.pensamiento_estrategico_3}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.pensamiento_estrategico_4.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.pensamiento_estrategico_4}}
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <h3 class="col-12">ENFOQUE RESULTADOS</h3>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.enfoque_resultados_1.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.enfoque_resultados_1}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.enfoque_resultados_2.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.enfoque_resultados_2}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.enfoque_resultados_3.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.enfoque_resultados_3}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-12 control-label"> {{form.enfoque_resultados_4.label}}              
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        {{form.enfoque_resultados_4}}
+                    </div>
+                </div>
+
+
+                <!-- REST OF THE FIELDS -->
+                </br>
+                
+                <div class="col-md-12">
+                    
+                    <label class="col-4 control-label"> {{form.strengths.label}}              
+                    </label>
+                    {{form.strengths}}
+                    
+                </div>
+
+                <div class="col-md-12">
+                    
+                    <label class="col-4 control-label"> {{form.oportunities_areas.label}}              
+                    </label>
+                    {{form.oportunities_areas}}
+                    
+                </div>
+
+                <div class="col-md-12">
+                    
+                    <label class="col-12 control-label"> {{form.general_question.label}}              
+                    </label>
+                    {{form.general_question}}
+                    
+                </div>
+
+                <div class="col-md-12">
+                    
+                    <label class="col-10 control-label"> {{form.observations.label}}              
+                    </label>
+                    {{form.observations}}
+                    
+                </div>
+
+                <div class="col-md-12">
+                    
+                    <label class="col-10 control-label"> {{form.url_signature.label}}              
+                    </label>
+                    {{form.url_signature}}
+                    
+                </div>
+
+
+
+            </div>
+            
+            
+        </div>
+    
+        <div class="justify-content-md-center md-4 ">
+            <button type="submit" class="btn btn-block btn-lg" style="background-image: #5c5c5b;"><i class="fas fa-database"></i>
+                Registrar</button>
+        </div>
+        </form>
+      
+    </div>
+    </div>
+    
+    
+</div>
+
+<div class="col-md-5">
+    <div class="card">
+        <div class="card-header">
+          <h5 class="title text-center">Calificación</h5>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Deficiente</th>
+                    <th scope="col">Regular</th>
+                    <th scope="col">Aceptable</th>
+                    <th scope="col">Muy Bueno</th>
+                    <th scope="col">Excelente</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    
+                    <td>De 1 a 20</td>
+                    <td>De 21 a 40</td>
+                    <td>De 41 a 65</td>
+                    <td>De 66 a 85 </td>
+
+                    <td>De 86 a 100</td>
+
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+    </div>
+</div>
+
+</div>
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<script>
+    $(document).ready(function() {
+    $('#selectemp').select2({ placeholder: "Select here", maximumSelectionSize: 100  });
+    $('#selecte2').select2({ placeholder: "Select here", maximumSelectionSize: 100  });
+
+    $( "#datepicker" ).datetimepicker({
+        format:'Y-m-d H:i:s',
+        step: 15,
+        pickTime: true,
+        });
+    $( "#datepicker2" ).datetimepicker({
+        format:'Y-m-d H:i:s',
+        step: 15
+        });
+    });
+    
+</script>
+
+{% endblock javascripts %}

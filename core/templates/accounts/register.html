@@ -1,0 +1,109 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Register {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<body>
+  <div class="container" style="margin-left: -180px;margin-top: -50px">
+      <div class="row" >
+         <div class="col-md-5 mx-auto">
+
+            <div id="first" style="background-color:#A7A9AC;">
+
+               <img src="https://secureservercdn.net/45.40.148.147/nga.40e.myftpupload.com/wp-content/uploads/2020/07/logo_E2E.png" class="rounded mx-auto d-block" alt="Logo E2E" style="width: 300px;margin-bottom: 20px;">
+
+               <div class="myform form" style="padding: 10px;">
+                {% csrf_token %} 
+                     <div class="logo mb-3">
+                        <div class="col-md-12 text-center">
+                           <h1 style="color: #b7d53a; font-weight: bold;">Register</h1>
+                           <h6 class="card-category">
+                            {% if msg %}
+                              <span class="text-danger">{{ msg }}</span>
+                            {% else %}
+                              Registra tus datos o <a href={% url 'login' %} >ingresa</a> con una cuenta existente.
+                            
+                        </div>
+                     </div>
+                {%endif %} 
+                {% if success %}
+      
+                      <p>
+                        Por favor <a href={% url 'login' %}>ingrese las credenciales</a> de la nueva cuenta.
+                      </p>  
+      
+                    {% else %}
+                     <form role="form" method="post" action="">
+              
+                
+      
+                      <div class="card-body">
+      
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <label>Username</label>
+                                {{ form.username }}
+                              </div>
+                            </div>        
+                          </div>
+                          <span class="text-danger">{{ form.username.errors }}</span>
+      
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <label>Email</label>
+                                {{form.email}}
+                                
+                              </div>
+                            </div>
+                          </div>
+                          <span class="text-danger">{{ form.email.errors }}</span>
+      
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <label>Password</label>
+                                {{ form.password1 }}
+                              </div>
+                            </div>
+                          </div>
+                          <span class="text-danger">{{ form.password1.errors }}</span>
+                          
+                          <div class="row">
+                              <div class="col">
+                                  <div class="form-group">
+                                  <label>Password Check</label>
+                                  {{ form.password2 }}
+                                  </div>
+                              </div>
+                          </div>
+                          <span class="text-danger">{{ form.password2.errors }}</span>
+      
+                      </div>
+                      <div class="card-footer">
+                        <button type="submit" name="register" class="btn">Register</button>
+                        &nbsp; &nbsp;
+                        Ya tienes cuenta? <a href="{% url 'login' %}" class="text-info">Login</a>
+                      </div>
+      
+                    {% endif %} 
+      
+                    </form>     
+      </div>
+    </div>
+
+      
+  </div>
+</div>   
+       
+</body>
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

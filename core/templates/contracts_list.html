@@ -1,0 +1,97 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} UI Tables {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+
+
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card ">
+      <div class="card-header">
+        <h4 class="card-title">Listado de Contratos Fijos</h4>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table tablesorter " id="">
+            <thead class=" text-primary">
+              <tr>
+                <th>
+                  Empresa
+                </th>
+                <th>
+                  Colaborador
+                </th>
+                <th>
+                  CC
+                </th>
+                <th>
+                  Inicio de Contrato
+                </th>
+                <th>
+                  Finaliza
+                </th>
+                <th>
+                  Debe Notificarse
+                </th>
+                <th>
+                  Notificado
+                </th>
+                <th>
+                  Se Renueva
+                </th>
+                <th>
+                  Observacion
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                {% for ctr in contracts_list %}
+                    <tr>
+                        <td>{{ctr.enterprise}}</td>
+                        <td>{{ctr.employee.fullname}}</td>
+                        <td>{{ctr.employee.identification}}</td>
+                        <td>{{ctr.idate_ctr}}</td>
+                        <td>{{ctr.edate_ctr}}</td>
+                        <td>{{ctr.not_date}}</td>
+                        <td>{{ctr.notified}}</td>
+                        <td>{{ctr.renew_ctr}}</td>
+                        <td>{{ctr.observation}}</td>
+
+                      {% if request.user.is_staff %}
+                        <td>
+                            <a href="{% url 'contracts_update' ctr.id %}" class="btn text-secondary px-0">
+                                <i class="far fa-edit fa-lg"></i>
+                            </a>
+                            <form action="{% url 'contracts_delete' ctr.id %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn">
+                                    <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                                </button>
+                            </form>
+                        </td>
+                      {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock content %}
+
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+{% endblock javascripts %}

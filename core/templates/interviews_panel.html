@@ -1,0 +1,95 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% load auth_extras %}
+
+{% block content %}
+
+    <div class="sidebar">
+      <div class="sidebar-wrapper">
+
+        {% if user.is_authenticated %}
+        
+        <ul class="nav">
+          {% if request.user|has_group:"Aprendiz" %}
+          <li class="active ">
+            <a href="/appl_form">
+              <i class="tim-icons icon-chart-pie-36"></i>
+              <p>Prueba Técnica</p>
+            </a>
+          </li>
+          {% endif %}
+          {% if request.user|has_group:"Contabilidad" %}
+          <li class="active ">
+            <a href="/test_list">
+              <i class="tim-icons icon-chart-pie-36"></i>
+              <p>Lista de Pruebas</p>
+            </a>
+          </li>
+          {% endif %}
+          {% if not request.user|has_group:"Aprendiz" %}
+          <li class="active ">
+            <a href="/">
+              <i class="tim-icons icon-chart-pie-36"></i>
+              <p>Lista General</p>
+            </a>
+          </li>
+            {% if request.user.is_staff%}
+              <li>
+                <a href="/main_form">
+                  <i class="tim-icons icon-atom"></i>
+                  <p>Registrar Colaborador</p>
+                </a> 
+              </li>
+              <li>
+                <a href="/addint_form">
+                  <i class="tim-icons icon-atom"></i>
+                  <p>Registrar Evaluación</p>
+                </a> 
+              </li>
+            {% endif%}
+          <li>
+            <a href="/int_main_form">
+              <i class="tim-icons icon-pin"></i>
+              <p>Realizar Evaluación</p>
+            </a>
+          </li>
+          {% if request.user|has_group:"Contabilidad" %}
+            <li class="active ">
+              <a href="/test_form">
+                <i class="tim-icons icon-chart-pie-36"></i>
+                <p>Realizar Prueba</p>
+              </a>
+            </li>
+          {% endif %}
+          <li>
+            <a href="/int_list">
+              <i class="tim-icons icon-align-center"></i>
+              <p>Evaluaciones</p>
+            </a>
+          </li>
+        {% endif %}
+        </ul>
+        {% endif %}
+        
+      </div>
+    </div>
+      
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+  <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/js/demos.js
+      demo.initDashboardPageCharts();
+
+    });
+  </script>
+
+{% endblock javascripts %}

@@ -1,0 +1,81 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} UI Tables {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+
+
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card ">
+      <div class="card-header">
+        <h4 class="card-title"> Simple Table</h4>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table tablesorter " id="">
+            <thead class=" text-primary">
+              <tr>
+                <th>
+                  Name
+                </th>
+                <th>
+                  Country
+                </th>
+                <th>
+                  City
+                </th>
+                <th class="text-center">
+                  Salary
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+                <form action="" method="GET" class="d-inline">
+                    {{myFilter.form}}
+                    <button type="submit" class="btn">
+                        <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                    </button>
+                </form>
+                {% for employee in employee_list %}
+                    <tr>
+                        <td>{{employee.fullname}}</td>
+                        <td>{{employee.mobile}}</td>
+                        <td>{{employee.position}}</td>
+
+                      {% if request.user.is_staff %}
+                        <td>
+                            <a href="{% url 'employee_update' employee.id %}" class="btn text-secondary px-0">
+                                <i class="far fa-edit fa-lg"></i>
+                            </a>
+                            <form action="{% url 'employee_delete' employee.id %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn">
+                                    <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                                </button>
+                            </form>
+                        </td>
+                      {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock content %}
+
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+{% endblock javascripts %}

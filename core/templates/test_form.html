@@ -1,0 +1,139 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Prueba {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="title">Prueba Técnica</h5>
+      </div>
+      <div class="card-header">
+        <p class="">Estimado aprendiz, responda las siguientes preguntas:.
+        </p>
+      </div>
+
+      <div class="card-header">
+        <h5 class="title">Cuestionario</h5>
+      </div>
+
+      <div class="card-body">
+      
+        <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <h5 class="title">Nombre de Aprendiz</h5>
+          {{form.apprentice}}
+          <div class="card-header">
+            <br>
+          </div>
+        <h5 class="title">No. de Identificacion (unicamente numeros sin puntos ni letras)</h5>
+          {{form.identification}}
+          <div class="card-header">
+            <br>
+          </div>
+        <h4 class="title">Pregunta No. 1</h4>
+        <h5 class="title">¿Qué es la partida doble?</h5>
+        {{form.question1}}
+        <div class="card-header">
+          <br>
+        </div>
+        <h4 class="title">Pregunta No. 2</h4>
+        <h5 class="title">¿Las máquinas son?</h5>
+        {{form.question2}}
+        <div class="card-header">
+          <br>
+        </div>
+        <h4 class="title">Pregunta No. 3</h4>
+        <h5 class="title">Un Anticipo a un Empleado, se ubica en</h5>
+        {{form.question3}}
+        <div class="card-header">
+          <br>
+        </div>
+        <h4 class="title">Pregunta No. 4</h4>
+        <h5 class="title">Explique la diferencia entre el capital de trabajo y el efectivo disponible.</h5>
+        {{form.question4}}
+        <div class="card-header">
+          <br>
+        </div>
+        <h4 class="title">Pregunta No. 5</h4>
+        <h5 class="title">Seleccione la respuesta correcta a la causacion de una factura de venta:</h5>
+        <br>
+        <h5 class="title">Aclaraciones: Factura de venta regimen comun a regimen comun, arrendamiento de Software, por $7.956.750 mas IVA</h5>
+        <h8 class="title">Imagen 1</h8>
+        <br>
+        <img src="http://hhrr20.pythonanywhere.com/media/venta1.JPG" alt="alternatetext">
+        <br>
+        <h8 class="title">Imagen 2</h8>
+        <br>
+        <img src="http://hhrr20.pythonanywhere.com/media/venta2.JPG" alt="alternatetext">
+        <br>
+        <h8 class="title">Imagen 3</h8>
+        <br>
+        <img src="http://hhrr20.pythonanywhere.com/media/venta3.JPG" alt="alternatetext">
+        <br>
+        <h6 class="title">Seleccione la respuesta</h6>
+        <br>
+        {{form.question5}}
+        <br>
+        <br>
+        <h6 class="title">Justifique la respuesta</h6>
+        <br>
+        {{form.just5}}
+        <div class="card-header">
+          <br>
+        </div>
+        <h4 class="title">Pregunta No. 6</h4>
+        <h5 class="title">Seleccione la respuesta correcta a la causacion de una factura de compra:</h5>
+        <h8 class="title">Imagen 1</h8>
+        <br>
+        <img src="http://hhrr20.pythonanywhere.com/media/compra1.JPG" alt="alternatetext">
+        <br>
+        <h8 class="title">Imagen 2</h8>
+        <br>
+        <img src="http://hhrr20.pythonanywhere.com/media/compra2.JPG" alt="alternatetext">
+        <br>
+        <h8 class="title">Imagen 3</h8>
+        <br>
+        <img src="http://hhrr20.pythonanywhere.com/media/compra3.JPG" alt="alternatetext">
+        <br>
+        <h6 class="title">Seleccione la respuesta</h6>
+        <br>
+        {{form.question6}}
+        <br>
+        <h6 class="title">Justifique la respuesta</h6>
+        <br>
+        {{form.just6}}
+        <div class="col-md-8">
+            <button type="submit" class="btn btn-success btn-block btn-lg"><i class="fas fa-database"></i>
+                Enviar</button>
+        </div>
+        </form>
+        
+    </div>
+    </div>
+</div>
+</div>
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<script>
+    $(document).ready(function() {
+      $('#selectemp').select2({ placeholder: "Select here", maximumSelectionSize: 100  });
+    });
+    
+</script>
+
+{% endblock javascripts %}

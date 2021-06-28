@@ -1,0 +1,55 @@
+
+    {% load auth_extras %}
+
+    {% if user.is_authenticated %}
+    <div class="sidebar">
+      <div class="sidebar-wrapper">
+
+        <div class="logo">
+          <h7  class="simple-text logo-normal" style="text-align: center;">
+            E2E - Gestión Humana
+          </h7>
+
+          <h7  class="simple-text logo-normal" style="text-align: center;">
+            EVALUACIONES DE DESEMPEÑO
+          </h7>
+        
+        </div>
+
+        
+        
+        <ul class="nav">
+          
+          
+          <li class="active">
+            <a href="/int_list">
+              <i class="tim-icons icon-align-center"></i>
+              <p>Evaluaciones</p>
+            </a>
+          </li>
+
+          <li>
+            <a href="/int_main_form">
+              <i class="tim-icons icon-pin"></i>
+              <p>Realizar Evaluación</p>
+            </a>
+          </li>
+
+
+          {% if user.is_staff %}
+              <li>
+                <a href="/main_form">
+                  <i class="tim-icons icon-atom"></i>
+                  <p>Registrar Colaborador</p>
+                </a> 
+              </li>
+          {% endif %} 
+          
+          
+        
+        </ul>
+      
+     
+      </div>
+    </div>
+    {% endif %}

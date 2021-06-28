@@ -1,0 +1,120 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="row">
+  <div class="col-md-12">
+    <div class="card ">
+      <div class="card-header">
+        <h4 class="card-title">Registro</h4>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table tablesorter " id="">
+            <thead class=" text-primary">
+              <tr>
+                <th>
+                  ASPIRANTE
+                </th>
+                <th>
+                  IDENTIFICACION
+                </th>
+                <th>
+                  TELEFONO
+                </th>
+                <th>
+                  EMAIL
+                </th>
+                <th>
+                  PROGRAMA
+                </th>
+                <th>
+                  FECHA ENTREVISTA
+                </th>
+                <th>
+                  ENTREVISTA REALIZADA?
+                </th>
+                <th>
+                  CONTRATAR?
+                </th>
+                <th>
+                  ELIMINAR
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for int in addint_list|dictsortreversed:"dated" %}
+                    <tr>
+                        <td>{{int.employee.fullname}}</td>
+                        <td>{{int.employee.identification}}</td>
+                        <td>{{int.employee.mobile}}</td>
+                        <td>{{int.employee.email}}</td>
+                        <td>{{int.employee.jobname}}</td>
+                        <td>{{int.dated}}</td>
+                        {% if int.interviewed%}
+                          <td>
+                              <a href="{% url 'item_update' int.id %}" class="btn text-secondary px-0">
+                                  <i class="fas fa-check-circle fa-lg">SI</i>
+                              </a>
+                          </td>
+                        {% else %}
+                          <td>
+                              <a href="{% url 'item_update' int.id %}" class="btn text-secondary px-0">
+                                  <i class="fas fa-times-circle fa-lg">NO</i>
+                              </a>
+                          </td>
+                        {% endif %}
+                        {% if int.hire %}
+                          <td>
+                              <a href="{% url 'item_update_concept' int.id %}" class="btn text-secondary px-0">
+                                  <i class="fas fa-check-circle fa-lg">SI</i>
+                              </a>
+                          </td>
+                        {% else %}
+                          <td>
+                              <a href="{% url 'item_update_concept' int.id %}" class="btn text-secondary px-0">
+                                  <i class="fas fa-times-circle fa-lg">NO</i>
+                              </a>
+                          </td>
+                        {% endif %}
+                        {% if request.user.is_staff %}
+                        <td>
+                            <form action="{% url 'addint_delete' int.id %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn">
+                                    <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                                </button>
+                            </form>
+                        </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+    
+    
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+  <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/js/demos.js
+      demo.initDashboardPageCharts();
+
+    });
+  </script>
+
+{% endblock javascripts %}
