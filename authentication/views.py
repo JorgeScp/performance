@@ -63,7 +63,7 @@ def register_user(request):
             msg     = 'User created.'
             success = True
             
-            # return redirect("/login/")
+            return redirect("/login/")
 
         else:
             msg = 'Form is not valid'    
