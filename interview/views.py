@@ -94,7 +94,7 @@ def export_pdf(request,id):
     p.setFillColor(colors.white)
     p.setStrokeColor(colors.white)
     p.setFont("Helvetica-Bold", 12)
-
+    
     p.drawCentredString(290, 810, "EVALUACIÓN DE DESEMPEÑO")
     #=====================================================
     #Date / assessment
