@@ -96,6 +96,13 @@ def export_pdf(request,id):
     p.setFont("Helvetica-Bold", 12)
     
     p.drawCentredString(290, 810, "EVALUACIÓN DE DESEMPEÑO")
+
+    p.setFillColor(colors.black)
+    p.setStrokeColor(colors.black)
+    p.setFont("Helvetica-Bold", 10)
+    
+    p.drawCentredString(520, 810, "PÁGINA 1 DE 2")
+
     #=====================================================
     #Date / assessment
     p.setFillColor(HexColor("#b7d53a"))
@@ -131,10 +138,10 @@ def export_pdf(request,id):
     data2 = [
         ['NOMBRE', interview.evaluated.fullname],
         ['CARGO', str(interview.evaluated.jobname)],
-        ['TEAM:', str(interview.evaluated.team)],
-        ['CARGO:', str(interview.evaluated.jobname)],
-        ['NOMBRE JEFE INMEDIATO:', str(interview.evaluator.fullname)],
-        ['CARGO JEFE INMEDIATO:', str(interview.evaluator.jobname)],
+        ['TEAM', str(interview.evaluated.team)],
+        ['CARGO', str(interview.evaluated.jobname)],
+        ['NOMBRE JEFE INMEDIATO', str(interview.evaluator.fullname)],
+        ['CARGO JEFE INMEDIATO', str(interview.evaluator.jobname)],
     ]
 
     width = 600
@@ -146,7 +153,16 @@ def export_pdf(request,id):
                        ('FONTSIZE', (0, 0), (-1, -1), 8),
                        ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
                        ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                       #set fond
+                       ('FONTNAME', (0,0), (0,-1), 'Helvetica-Bold'),
                        #('BACKGROUND',(-2,-2),(-1,-1), colors.pink),
+                       
+                       ('BACKGROUND',(0,0),(1,0), HexColor("#bcc2cf")),
+                       #second
+                       ('BACKGROUND',(0,2),(1,2), HexColor("#bcc2cf")),
+                       #third
+                       ('BACKGROUND',(0,4),(1,4), HexColor("#bcc2cf")),
+
                        ]))
 
     f.wrapOn(p, width, height)
@@ -161,7 +177,7 @@ def export_pdf(request,id):
     data2 = [
         ['NOMBRE', interview.evaluator.fullname],
         ['CARGO', str(interview.evaluator.jobname)],
-        ['RELACIÓN:', str(interview.relation)],
+        ['RELACIÓN', str(interview.relation)],
     ]
 
     width = 600
@@ -174,6 +190,13 @@ def export_pdf(request,id):
                        ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
                        ('BOX', (0,0), (-1,-1), 0.25, colors.black),
                        #('BACKGROUND',(-2,-2),(-1,-1), colors.pink),
+                       #set fond
+                       ('FONTNAME', (0,0), (0,-1), 'Helvetica-Bold'),
+                       #('BACKGROUND',(-2,-2),(-1,-1), colors.pink),
+                       
+                       ('BACKGROUND',(0,0),(1,0), HexColor("#bcc2cf")),
+                       #second
+                       ('BACKGROUND',(0,2),(1,2), HexColor("#bcc2cf")),
                        ]))
 
     f.wrapOn(p, width, height)
@@ -240,7 +263,17 @@ def export_pdf(request,id):
                        ('BACKGROUND',(0,0),(2,0), HexColor("#b7d53a")),
                        ('TEXTCOLOR', (0, 0), (2, 0), colors.white),
                        #COMUNICATION
-                       #('SPAN', (0, 1), (1, 1)),
+                       #set fond
+                       ('FONTNAME', (0,0), (0,-1), 'Helvetica-Bold'),
+                       #('BACKGROUND',(-2,-2),(-1,-1), colors.pink),
+                       ('BACKGROUND',(0,1),(1,1), HexColor("#bcc2cf")),
+                       #second
+                       ('BACKGROUND',(0,3),(1,3), HexColor("#bcc2cf")),
+                       #third
+                       ('BACKGROUND',(0,5),(1,5), HexColor("#bcc2cf")),
+                        #four
+                       ('BACKGROUND',(0,7),(1,7), HexColor("#bcc2cf")),
+
                        ]))
 
     f.wrapOn(p, width, height)
@@ -370,8 +403,9 @@ def export_pdf(request,id):
                        ('BOX', (0,0), (-1,-1), 0.25, colors.black),
                        #TITLE
                        ('ALIGN', (0, 0), (2, 0), "CENTER"),
-                       ('BACKGROUND',(0,0),(0,1), HexColor("#b7d53a")),
-                       ('TEXTCOLOR', (0, 0), (0, 1), colors.white),
+                       ('FONTNAME', (0,0), (0,1), 'Helvetica-Bold'),
+                       ('BACKGROUND',(0,0),(0,1), HexColor("#bcc2cf")),
+
                        ]))
 
     f.wrapOn(p, width, height)
@@ -459,6 +493,12 @@ def export_pdf(request,id):
     p.setFont("Helvetica-Bold", 14)
 
     p.drawCentredString(290, 800, "EVALUACIÓN DE DESEMPEÑO")
+    
+    p.setFillColor(colors.black)
+    p.setStrokeColor(colors.black)
+    p.setFont("Helvetica-Bold", 10)
+    
+    p.drawCentredString(520, 810, "PÁGINA 2 DE 2")
 
     p.setFillColor(colors.grey)
     p.setStrokeColor(colors.grey)
