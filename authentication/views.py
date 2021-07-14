@@ -29,13 +29,13 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 user_groups = request.user.groups.values_list('name', flat=True)
-                return redirect("/int_list/")
+                return redirect("/list_test/")
                 # if request.user.is_superuser:
                 #     return redirect("int_list")
                 # elif "Colaborador" in user_groups:
                 #     return redirect("/int_list/")
             else:    
-                msg = 'Invalid credentials'    
+                msg = 'Credenciales Invalidas'    
         else:
             msg = 'Error validating the form'    
 

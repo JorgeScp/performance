@@ -1,21 +1,17 @@
 from django.db import models
 from django.db.models.aggregates import Max
-from employee.models import Employee
+from django.conf import settings
 from django.contrib.auth.models import User
 MIN = 0
 MAX = 100
 from django.core.validators import MinValueValidator, MaxValueValidator
 
-class Relation_e2e(models.Model):
-    name = models.CharField(null=True, blank=True,max_length=50,default="0")
-    def __str__(self):
-        return self.name
 
 class Interview(models.Model):
-    dated = models.DateTimeField(null=True, blank=True)
-    evaluator = models.ForeignKey(Employee,on_delete=models.CASCADE,null=True,blank=True, related_name='evaluator')
-    evaluated = models.ForeignKey(Employee,on_delete=models.CASCADE,null=True,blank=True, related_name='evaluated')
-    relation = models.ForeignKey(Relation_e2e,on_delete=models.CASCADE,null=True,blank=True)
+    dated = models.DateField(null=True, blank=True)
+    evaluator = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,null=True,blank=True, related_name='evaluator')
+    evaluated = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,null=True,blank=True, related_name='evaluated')
+    relation = models.CharField(null=True, blank=True,max_length=200,default="No Asignado")
     #=========================================================================================
     # QUESTIONS MODELS
     #=========================================================================================
@@ -82,9 +78,6 @@ class Interview(models.Model):
     oportunities_areas = models.CharField(null=True, blank=True,max_length=200,default="0")
     general_question = models.CharField(null=True, blank=True,max_length=200,default="0")
     observations = models.CharField(null=True, blank=True,max_length=200,default="Ninguna")
-    url_signature = models.CharField(null=True, blank=True,max_length=2000,default="https://raw.githubusercontent.com/JorgeScp/randomfiles/main/bg.png")
-
-    touser = models.ForeignKey(User,on_delete=models.CASCADE,default=0)     
 
 
     #visa = models.BooleanField(default=False)

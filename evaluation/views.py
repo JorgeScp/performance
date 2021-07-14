@@ -18,61 +18,12 @@ from django.http import HttpResponseRedirect
 
 
 @login_required(login_url="/login/")
-def appl_list(request):
-    # if request.user.is_superuser:
-    #     qs = Applicant.objects.all()
-    # else:
-    #     qs = Applicant.objects.filter(interviewer=request.user)
-    context = {'appl_list': Applicant.objects.all()}
-    return render(request, "applicant_list.html", context)
-
-
-@login_required(login_url="/login/")
-def appl_form(request):
-    if request.POST and request.FILES['document']:
-        form = ApplicantForm(request.POST, request.FILES or None)
-        if form.is_valid():
-            edit = form.save(commit=False)
-            edit.save()
-            return HttpResponse('Registro Completo')
-        else:
-            return render(request, "applicantForm.html", {'form': form})
+def test_assign_list(request):
+    if request.user.is_superuser:
+        qs = Test_Assign.objects.all()
     else:
-        form = ApplicantForm()
-    return render(request, 'applicantForm.html', {'form': form})
+        qs = Test_Assign.objects.filter(assign_to=request.user)
+    context = {'test_assign_list': qs}
+    return render(request, "test_list_2.html", context)
 
 
-
-
-@login_required(login_url="/login/")
-def test_list(request):
-    # if request.user.is_superuser:
-    #     qs = Applicant.objects.all()
-    # else:
-    #     qs = Applicant.objects.filter(interviewer=request.user)
-    context = {'test_list': appTest.objects.all()}
-    return render(request, "test_list.html", context)
-
-
-def test_form(request, id=0):
-    if request.method == "GET":
-        if id == 0:
-            form = appTestForm()
-        else:
-            interview = appTest.objects.get(pk=id)
-            employee_list = appTest.objects.all()
-            form = appTestForm(instance=interview)
-            contextabs = {'form': form, 'employee_list': employee_list}
-        return render(request, "test_form.html", {'form': form, 'employee_list': appTest.objects.all()})
-    else:
-        if id == 0:
-            form = appTestForm(request.POST)
-        else:
-            interview = appTest.objects.get(pk=id)
-            
-            form = appTestForm(request.POST,instance= interview)
-        if form.is_valid():
-            form.save()
-            return HttpResponse('Hemos recibido sus respuestas, muchas gracias!')
-        else:
-            return render(request,"test_form.html",{'form':form})

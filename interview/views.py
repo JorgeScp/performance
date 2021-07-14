@@ -2,14 +2,14 @@
 from .models import Interview
 from .forms import InterviewForm
 from django.http import JsonResponse
-
+from django.contrib.auth import get_user_model
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template import loader
 from django.http import HttpResponse
 from django import template
-from employee.models import Employee
+from django.conf import settings
 from django.forms.models import model_to_dict
 from django.db.models import Sum, Count
 from django.contrib.contenttypes.models import ContentType
@@ -26,6 +26,8 @@ from reportlab.lib.colors import HexColor
 import requests
 import re
 from urllib.request import urlopen
+from evaluation.models import Test_Assign
+
 
 PartnerLogo = "https://raw.githubusercontent.com/JorgeScp/randomfiles/main/logo_E2E.png"
 #PartnerLogo = "https://southcentralus1-mediap.svc.ms/transform/thumbnail?provider=spo&inputFormat=png&cs=fFNQTw&docid=https%3A%2F%2Flinkam-my.sharepoint.com%3A443%2F_api%2Fv2.0%2Fdrives%2Fb!tb30pSTWMkSXMivGJmJNbpMzxD32bjdHlSgKAhwQmR7c8pEJKiKZTqNc4Nxxoc94%2Fitems%2F01O6MELQB6SB4MDO465JCJVJTX3QS4OD3K%3Fversion%3DPublished&encodeFailures=1&ctag=%22c%3A%7BC178903E-9EBB-44EA-9AA6-77DC25C70F6A%7D%2C1%22&access_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJub25lIn0.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAvbGlua2FtLW15LnNoYXJlcG9pbnQuY29tQGVjMDA4MmE5LWU5YzItNGQ2NS1hODFkLTdjM2U2YmRjZjczMyIsImlzcyI6IjAwMDAwMDAzLTAwMDAtMGZmMS1jZTAwLTAwMDAwMDAwMDAwMCIsIm5iZiI6IjE2MjQ2NDM5OTkiLCJleHAiOiIxNjI0NjY1NTk5IiwiZW5kcG9pbnR1cmwiOiJldzUrNk50KzM2a1VXVm5kRVhkQmQwRHFYY2FlYzFTeHJOZUUwZURvdzQ4PSIsImVuZHBvaW50dXJsTGVuZ3RoIjoiMTE2IiwiaXNsb29wYmFjayI6IlRydWUiLCJ2ZXIiOiJoYXNoZWRwcm9vZnRva2VuIiwic2l0ZWlkIjoiWVRWbU5HSmtZalV0WkRZeU5DMDBORE15TFRrM016SXRNbUpqTmpJMk5qSTBaRFpsIiwibmFtZWlkIjoiMCMuZnxtZW1iZXJzaGlwfHVybiUzYXNwbyUzYWFub24jZmUxMWY2MTY1MjhmZTcwMmFiODJiMjc0OTZhODI0NTM0ODFkOTA3OGFlZTIwNzMyNjg2ZTM2YmZmZDM0YWYzMCIsIm5paSI6Im1pY3Jvc29mdC5zaGFyZXBvaW50IiwiaXN1c2VyIjoidHJ1ZSIsImNhY2hla2V5IjoiMGguZnxtZW1iZXJzaGlwfHVybiUzYXNwbyUzYWFub24jZmUxMWY2MTY1MjhmZTcwMmFiODJiMjc0OTZhODI0NTM0ODFkOTA3OGFlZTIwNzMyNjg2ZTM2YmZmZDM0YWYzMCIsInNoYXJpbmdpZCI6Ikk1MWFNUmxGdGtLRUxlQ2NyVXVUQ1EiLCJ0dCI6IjAiLCJ1c2VQZXJzaXN0ZW50Q29va2llIjoiMiJ9.Tm9oaDVnWkQ2UkMvNzZkMC9qQWl1QVYxT1h1MDZtK21XRkJJU2RDUkp6TT0&prooftoken=undefined&srcWidth=&srcHeight=&width=1366&height=581&action=Access"
@@ -71,7 +73,7 @@ def export_pdf(request,id):
     itdate = str(interview.dated)[0:10]
     # Create the HttpResponse object with the appropriate PDF headers.
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = f'attachment; filename="ED-{interview.evaluated.fullname}-{itdate}.pdf"'
+    response['Content-Disposition'] = f'attachment; filename="ED-{interview.evaluated.last_name} {interview.evaluated.first_name}-{itdate}.pdf"'
 
     # Create the PDF object, using the response object as its "file."
     p = canvas.Canvas(response)
@@ -136,12 +138,12 @@ def export_pdf(request,id):
     p.drawString(20, 720, "DATOS DEL EVALUADO")
 
     data2 = [
-        ['NOMBRE', interview.evaluated.fullname],
+        ['NOMBRE', interview.evaluated.last_name + ' ' + interview.evaluated.first_name],
         ['CARGO', str(interview.evaluated.jobname)],
         ['TEAM', str(interview.evaluated.team)],
         ['CARGO', str(interview.evaluated.jobname)],
-        ['NOMBRE JEFE INMEDIATO', str(interview.evaluator.fullname)],
-        ['CARGO JEFE INMEDIATO', str(interview.evaluator.jobname)],
+        ['NOMBRE JEFE INMEDIATO', str(interview.evaluated.boss.first_name + ' ' + interview.evaluated.boss.first_name)],
+        ['CARGO JEFE INMEDIATO', str(interview.evaluated.boss.jobname)],
     ]
 
     width = 600
@@ -175,7 +177,7 @@ def export_pdf(request,id):
     p.drawString(320, 720, "DATOS DEL EVALUADOR")
 
     data2 = [
-        ['NOMBRE', interview.evaluator.fullname],
+        ['NOMBRE', interview.evaluator.last_name + ' '+ interview.evaluator.first_name],
         ['CARGO', str(interview.evaluator.jobname)],
         ['RELACIÓN', str(interview.relation)],
     ]
@@ -410,7 +412,7 @@ def export_pdf(request,id):
 
     f.wrapOn(p, width, height)
     f.drawOn(p, x, y)
-    tem_file_path = interview.url_signature
+    tem_file_path = "interview.url_signature"
     
     regex = re.compile(
         r'^(?:http|ftp)s?://' # http:// or https://
@@ -420,7 +422,6 @@ def export_pdf(request,id):
         r'(?::\d+)?' # optional port
         r'(?:/?|[/?]\S+)$', re.IGNORECASE)
 
-    
 
     #signature
     checked_url = re.match(regex, tem_file_path)
@@ -613,28 +614,35 @@ def export_pdf(request,id):
 
 
 
+
 @login_required(login_url="/login/")
 def int_list(request):
     if request.user.is_superuser:
         created_by_user = Interview.objects.all()
     else:
-        created_by_user = Interview.objects.filter(touser=request.user)
+        created_by_user = Interview.objects.filter(evaluator=request.user)
     context = {'int_list': created_by_user}
     
     return render(request, "ui-tables-abs.html", context)
 
 
 @login_required(login_url="/login/")
-def int_form(request, id=0):
+def int_form(request, id=0,pk=0):
+    print(id)
+    
+    print(request)
+    User_at = get_user_model()
     if request.method == "GET":
         if id == 0:
             form = InterviewForm()
         else:
             interview = Interview.objects.get(pk=id)
-            employee_list = Employee.objects.all()
+            
+        
+            employee_list = User_at.objects.all()
             form = InterviewForm(instance=interview)
             contextabs = {'form': form, 'employee_list': employee_list}
-        return render(request, "abs_form.html", {'form': form, 'employee_list': Employee.objects.all()})
+        return render(request, "abs_form.html", {'form': form, 'employee_list': User_at.objects.all()})
     else:
         if id == 0:
             form = InterviewForm(request.POST)
@@ -644,8 +652,16 @@ def int_form(request, id=0):
             
         
         if form.is_valid():
+            prefill_data = Test_Assign.objects.get(pk=pk)
+            prefill_data.done = "Completada"
+            prefill_data.save()
+
             assessment = form.save(commit=False)
-            assessment.touser = request.user
+            #assessment.touser = request.user
+            assessment.evaluated = prefill_data.evaluated
+            assessment.evaluator = prefill_data.evaluator
+            assessment.relation = prefill_data.relation
+
             assessment.comunicacion_r = (assessment.comunicacion_1 + assessment.comunicacion_2 + assessment.comunicacion_3 +assessment.comunicacion_4 +assessment.comunicacion_5) / (5)
             assessment.trabajo_equipo_r = (assessment.trabajo_equipo_1 + assessment.trabajo_equipo_2 + assessment.trabajo_equipo_3) / (3)
             assessment.servicio_cliente_r = (assessment.servicio_cliente_1+assessment.servicio_cliente_2+assessment.servicio_cliente_3) / (3)

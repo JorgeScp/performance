@@ -1,4 +1,4 @@
-from .models import Interview, Relation_e2e
+from .models import Interview
 from django import forms
 from django.core.validators import RegexValidator
 
@@ -72,7 +72,7 @@ class InterviewForm(forms.ModelForm):
             'enfoque_resultados_2':'Mantiene altos niveles de estándares de desempeño ',
             'enfoque_resultados_3':'Sus resultados son sobresalientes y generan valor a la empresa. ',
             'enfoque_resultados_4':'Es detallista con la información que presenta y en pocas ocasiones se detectan inconsistencias o errores. ',
-            'url_signature':'URL Firma',
+            
             
             #__________________________________________
         }
@@ -88,8 +88,7 @@ class InterviewForm(forms.ModelForm):
         self.fields['evaluator'].widget.attrs.update({'class': 'form-dropdown', 'id':'selectemp'})
         self.fields['evaluated'].empty_label = "Select"
         self.fields['evaluated'].widget.attrs.update({'class': 'form-dropdown', 'id':'selecte2'})
-        self.fields['relation'].label = "Relación"
-        self.fields['relation'].widget.attrs.update({'class': 'form-dropdown'})
+        
         #Make form control all questions
         self.fields['comunicacion_1'].widget.attrs.update({'class': 'form-control'})
         self.fields['comunicacion_2'].widget.attrs.update({'class': 'form-control'})
@@ -123,7 +122,7 @@ class InterviewForm(forms.ModelForm):
         self.fields['enfoque_resultados_2'].widget.attrs.update({'class': 'form-control'})
         self.fields['enfoque_resultados_3'].widget.attrs.update({'class': 'form-control'})
         self.fields['enfoque_resultados_4'].widget.attrs.update({'class': 'form-control'})
-        self.fields['url_signature'].widget.attrs.update({'class': 'form-control'})
+       
 
 
         #elf.fields['touser'].disabled = True

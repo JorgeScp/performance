@@ -20,22 +20,21 @@
         
         <ul class="nav">
           
-          
+          <li>
+            <a href="/list_test">
+              <i class="tim-icons icon-pin"></i>
+              <p>Evaluaciones Asignadas</p>
+            </a>
+          </li>
+
           <li class="active">
             <a href="/int_list">
               <i class="tim-icons icon-align-center"></i>
-              <p>Evaluaciones</p>
+              <p>Evaluaciones Realizadas</p>
             </a>
           </li>
 
-          <li>
-            <a href="/int_main_form">
-              <i class="tim-icons icon-pin"></i>
-              <p>Realizar Evaluación</p>
-            </a>
-          </li>
-
-
+        
           {% if user.is_staff %}
               <li>
                 <a href="/main_form">

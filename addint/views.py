@@ -8,7 +8,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.template import loader
 from django.http import HttpResponse
 from django import template
-from employee.models import Employee
+from django.conf import settings
 from django.forms.models import model_to_dict
 from django.db.models import Sum, Count
 
@@ -42,10 +42,10 @@ def addint_form(request, id=0):
             form = AddIntForm()
         else:
             addint = AddInt.objects.get(pk=id)
-            employee_list = Employee.objects.all()
+            employee_list = settings.AUTH_USER_MODEL.objects.all()
             form = AddIntForm(instance=addint)
             contextabs = {'form': form, 'employee_list': employee_list}
-        return render(request, "addint_form.html", {'form': form, 'employee_list': Employee.objects.all()})
+        return render(request, "addint_form.html", {'form': form, 'employee_list': settings.AUTH_USER_MODEL.objects.all()})
     else:
         if id == 0:
             form = AddIntForm(request.POST)

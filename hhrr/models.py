@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from employee.models import Employee
+from django.conf import settings
 
 class Contracts(models.Model):
     CONTRACTS = [
@@ -22,7 +22,7 @@ class Contracts(models.Model):
         choices=ENTERPRISES,
         default='RIMAB'
     )
-    employee = models.ForeignKey(Employee,on_delete=models.CASCADE)
+    employee = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     t_contract = models.CharField(
         max_length=30,
         choices=CONTRACTS,

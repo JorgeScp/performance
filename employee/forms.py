@@ -1,14 +1,22 @@
 from django import forms
-from .models import Employee
+from .models import User
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
+
+class MyUserCreationForm(UserCreationForm):
+
+    class Meta(UserCreationForm):
+        model = User
+        fields = '__all__'
+
+class MyUserChangeForm(UserChangeForm):
+
+    class Meta(UserChangeForm):
+        model = User
+        fields = '__all__'
 
 class EmployeeForm(forms.ModelForm):
-    fullname = forms.CharField(
-        widget=forms.TextInput(
-            attrs={  
-                "class": "form-control"
-            }
-        ))
+
     mobile = forms.CharField(
         widget=forms.TextInput(
             attrs={  
@@ -29,10 +37,9 @@ class EmployeeForm(forms.ModelForm):
         ))
 
     class Meta:
-        model = Employee
+        model = User
         fields = '__all__'
         labels = {
-            'fullname':'Full Name',
             'identification':'identification'
         }
 
