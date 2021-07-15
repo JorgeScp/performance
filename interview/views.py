@@ -628,17 +628,12 @@ def int_list(request):
 
 @login_required(login_url="/login/")
 def int_form(request, id=0,pk=0):
-    print(id)
-    
-    print(request)
     User_at = get_user_model()
     if request.method == "GET":
         if id == 0:
             form = InterviewForm()
         else:
             interview = Interview.objects.get(pk=id)
-            
-        
             employee_list = User_at.objects.all()
             form = InterviewForm(instance=interview)
             contextabs = {'form': form, 'employee_list': employee_list}
@@ -646,22 +641,29 @@ def int_form(request, id=0,pk=0):
     else:
         if id == 0:
             form = InterviewForm(request.POST)
+            assessment = form.save(commit=False)
         else:
             interview = Interview.objects.get(pk=id)
             form = InterviewForm(request.POST,instance= interview)
-            
-        
-        if form.is_valid():
-            prefill_data = Test_Assign.objects.get(pk=pk)
-            prefill_data.done = "Completada"
-            prefill_data.save()
-
             assessment = form.save(commit=False)
-            #assessment.touser = request.user
-            assessment.evaluated = prefill_data.evaluated
-            assessment.evaluator = prefill_data.evaluator
-            assessment.relation = prefill_data.relation
 
+        if form.is_valid():
+            
+            if pk != 0:
+                prefill_data = Test_Assign.objects.get(pk=pk)
+                prefill_data.done = "Completada"
+                prefill_data.save()
+
+                assessment.evaluated = prefill_data.evaluated
+                assessment.evaluator = prefill_data.evaluator
+                assessment.relation = prefill_data.relation
+            else:
+                emp_data = Interview.objects.get(pk=id)
+                assessment.evaluated = emp_data.evaluated
+                assessment.evaluator = emp_data.evaluator
+                assessment.relation = emp_data.relation
+                
+            print(assessment.dated)
             assessment.comunicacion_r = (assessment.comunicacion_1 + assessment.comunicacion_2 + assessment.comunicacion_3 +assessment.comunicacion_4 +assessment.comunicacion_5) / (5)
             assessment.trabajo_equipo_r = (assessment.trabajo_equipo_1 + assessment.trabajo_equipo_2 + assessment.trabajo_equipo_3) / (3)
             assessment.servicio_cliente_r = (assessment.servicio_cliente_1+assessment.servicio_cliente_2+assessment.servicio_cliente_3) / (3)

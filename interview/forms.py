@@ -1,6 +1,7 @@
 from .models import Interview
 from django import forms
 from django.core.validators import RegexValidator
+from django.conf import settings
 
 class InterviewForm(forms.ModelForm):
     strengths = forms.CharField(
@@ -34,7 +35,7 @@ class InterviewForm(forms.ModelForm):
     class Meta:
         model = Interview
         fields = '__all__'
-        exclude = ('result','touser')
+        exclude = ('result',)
         labels = {
             'evaluator':'Evaluador',
             'evaluated':'Evaluado',
@@ -83,7 +84,7 @@ class InterviewForm(forms.ModelForm):
         # self.fields['leaveconcept'].empty_label = "Select"
         # self.fields['leaveconcept'].widget.attrs.update({'class': 'form-dropdown'})
         self.fields['dated'].widget.attrs.update({'class': 'form-control','id':'datepicker'})
-        self.fields['dated'].input_formats=['%Y-%m-%d %H:%M:%S']
+        self.fields['dated'].input_formats=(settings.DATE_INPUT_FORMATS)
         self.fields['evaluator'].empty_label = "Select"
         self.fields['evaluator'].widget.attrs.update({'class': 'form-dropdown', 'id':'selectemp'})
         self.fields['evaluated'].empty_label = "Select"

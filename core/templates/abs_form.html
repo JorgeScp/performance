@@ -519,16 +519,23 @@
     $('#selecte2').select2({ placeholder: "Select here", maximumSelectionSize: 100  });
 
     $( "#datepicker" ).datetimepicker({
-        format:'Y-m-d H:i:s',
-        step: 15,
-        pickTime: true,
+        timepicker:false,
+        format:'Y-m-d',
+
         });
     $( "#datepicker2" ).datetimepicker({
-        format:'Y-m-d H:i:s',
-        step: 15
+        timepicker:false,
+        format:'Y-m-d',
+ 
         });
     });
     
+    function getFormattedDate(date) {
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear().toString().slice(2);
+        return day + '/' + month + '/' + year;
+    }
 </script>
 
 {% endblock javascripts %}

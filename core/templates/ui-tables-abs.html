@@ -257,7 +257,7 @@
                   RELACIÓN
                 </th>
                 <th>
-                  COLABORADOR
+                  COLABORADOR EVALUADO
                 </th>
                 <th>
                   TEAM
@@ -271,6 +271,11 @@
                 <th>
                   PUNTAJE GENERAL
                 </th>
+                {% if request.user.is_staff%}
+                  <th>
+                    EVALUADOR
+                  </th>
+                {%endif%}
                 <th>
                   EDITAR
                 </th>
@@ -293,6 +298,9 @@
                         <td>{{int.evaluated.jobname}}</td>
                         <td>{{int.dated}}</td>
                         <td>{{int.result}}</td>
+                        {% if request.user.is_staff%}
+                          <td>{{int.evaluator.first_name}} {{int.evaluator.last_name}}</td>
+                        {%endif%}
                         <td>
                             <a href="{% url 'int_update' int.id 0%}">
                                 
