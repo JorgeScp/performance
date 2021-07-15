@@ -18,14 +18,7 @@ class Test_Assign(models.Model):
         related_name="employee_evaluator"
     )
     relation = models.CharField(max_length=100,blank=True, null=True)
-    assign_to = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        blank=True,
-        null=True,
-        on_delete=models.CASCADE,
-        related_name="assign_to"
-    )
     done = models.CharField(max_length=100,blank=True, null=True,default="Asignado")
 
     def __str__(self):
-        return self.evaluated.first_name
+        return self.evaluated.first_name + ' ' + self.evaluated.last_name 

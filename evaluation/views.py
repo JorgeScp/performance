@@ -22,7 +22,7 @@ def test_assign_list(request):
     if request.user.is_superuser:
         qs = Test_Assign.objects.all()
     else:
-        qs = Test_Assign.objects.filter(assign_to=request.user)
+        qs = Test_Assign.objects.filter(evaluator=request.user)
     context = {'test_assign_list': qs}
     return render(request, "test_list_2.html", context)
 
