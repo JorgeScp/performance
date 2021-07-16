@@ -24,9 +24,13 @@ class MyUserAdmin(UserAdmin):
             (None, {'fields': ('identification','mobile','doi','team','jobname','boss_name','boss_job_name' )}),
     ) #this will allow to change these fields in admin module
 
-admin.site.register(User, MyUserAdmin)
+#admin.site.register(User, MyUserAdmin)
 
-# @admin.register(User)
+@admin.register(User)
+class ViewAdmim(ImportExportModelAdmin):
+    pass
+
+# @admin.register(MyUserAdmin)
 # class ViewAdmim(ImportExportModelAdmin):
 #     pass
 
