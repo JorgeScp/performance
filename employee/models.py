@@ -21,15 +21,10 @@ class User(AbstractUser):
     mobile= models.IntegerField(null=True,blank=True)
     
     doi = models.DateField(null=True, blank=True)
-    team = models.CharField(max_length=300,null=True,blank=True,default="NA")
-    jobname = models.CharField(max_length=300,null=True,blank=True,default="NA")
-    boss = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        blank=True,
-        null=True,
-        on_delete=models.CASCADE,
-        related_name="Boss"
-    )
+    team = models.CharField(max_length=600,null=True,blank=True,default="NA")
+    jobname = models.CharField(max_length=600,null=True,blank=True,default="NA")
+    boss_name = models.CharField(max_length=600,null=True,blank=True,default="NA")
+    boss_job_name = models.CharField(max_length=600,null=True,blank=True,default="NA")
     
     REQUIRED_FIELDS = []
 

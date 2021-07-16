@@ -21,7 +21,7 @@ class MyUserAdmin(UserAdmin):
     model = User
     list_display = ['username', 'identification']
     fieldsets = UserAdmin.fieldsets + (
-            (None, {'fields': ('identification','mobile','doi','team','jobname','boss' )}),
+            (None, {'fields': ('identification','mobile','doi','team','jobname','boss_name','boss_job_name' )}),
     ) #this will allow to change these fields in admin module
 
 admin.site.register(User, MyUserAdmin)
