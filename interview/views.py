@@ -143,7 +143,7 @@ def export_pdf(request,id):
         ['TEAM', str(interview.evaluated.team)],
         ['CARGO', str(interview.evaluated.jobname)],
         ['NOMBRE JEFE INMEDIATO', str(interview.evaluated.boss_name)],
-        ['CARGO JEFE INMEDIATO', str(interview.boss_job_name)],
+        ['CARGO JEFE INMEDIATO', str(interview.evaluated.boss_job_name)],
     ]
 
     width = 600
