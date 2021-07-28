@@ -27,3 +27,30 @@ def test_assign_list(request):
     return render(request, "test_list_2.html", context)
 
 
+@login_required(login_url="/login/")
+def rel_form(request, id=0):
+    if request.method == "GET":
+        if id == 0:
+            form = Relation_Form()
+        else:
+            relation = Test_Assign.objects.get(pk=id)
+          
+            form = Relation_Form(instance=relation)
+            
+        return render(request, "relation_form.html", {'form': form, 'employee_list': Test_Assign.objects.all()})
+    else:
+        if id == 0:
+            form = Relation_Form(request.POST)
+            assessment = form.save(commit=False)
+        else:
+            relation = Test_Assign.objects.get(pk=id)
+            form = Relation_Form(request.POST,instance= relation)
+            assessment = form.save(commit=False)
+
+        if form.is_valid():
+
+            assessment.save()
+
+            return redirect('/int_list')
+        else:
+            return render(request,"relation_form.html",{'form':form})

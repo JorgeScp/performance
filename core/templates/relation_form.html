@@ -11,7 +11,7 @@
   <div class="col-md-8">
     <div class="card">
       <div class="card-header">
-        <h5 class="title text-center">Formato de Evaluacións</h5>
+        <h5 class="title text-center">Register Relationships</h5>
       </div>
       <div class="card-body">
       
@@ -51,7 +51,9 @@
 
 <script>
     $(document).ready(function() {
-    $('#selectemp4').select2({ placeholder: "Select here", maximumSelectionSize: 100  });
+    $('#selectevaluated').select2({ placeholder: "Select here", maximumSelectionSize: 100  });
+    $('#selectevaluator').select2({ placeholder: "Select here", maximumSelectionSize: 100  });
+
     $( "#datepicker4" ).datetimepicker({
         format:'Y-m-d H:i:s',
         step: 15

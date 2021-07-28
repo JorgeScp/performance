@@ -1,5 +1,7 @@
 from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
+from django.contrib.auth.hashers import make_password
+from import_export import resources, fields
 
 # Register your models here.
 from .models import User
@@ -26,11 +28,18 @@ class MyUserAdmin(UserAdmin):
 
 #admin.site.register(User, MyUserAdmin)
 
+class UserResource(resources.ModelResource):
+    def before_import_row(self,row, **kwargs):
+        value = row['password']
+        row['password'] = make_password(value)
+    class Meta:
+        model = User
+
 @admin.register(User)
 class ViewAdmim(ImportExportModelAdmin):
-    pass
+    resource_class = UserResource
 
-# @admin.register(MyUserAdmin)
+#admin.site.register(MyUserAdmin)
 # class ViewAdmim(ImportExportModelAdmin):
 #     pass
 
